@@ -1,0 +1,9 @@
+{
+	"host":"localhost",
+	"port":"3306",
+	"database":"DB",
+	"user":"USER",
+	"pass":"PASS",
+	"minPool":"1",
+	"maxPool":"30",
+}

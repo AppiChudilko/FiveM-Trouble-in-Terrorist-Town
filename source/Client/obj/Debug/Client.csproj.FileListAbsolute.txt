@@ -1,0 +1,9 @@
+C:\Users\racke\RiderProjects\TTT\TTT\Client\bin\Debug\Client.net.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Client\bin\Debug\Client.net.pdb
+C:\Users\racke\RiderProjects\TTT\TTT\Client\bin\Debug\CitizenFX.Core.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Client\bin\Debug\ClientData.net.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Client\bin\Debug\NativeUI.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\racke\RiderProjects\TTT\TTT\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\racke\RiderProjects\TTT\TTT\Client\obj\Debug\Client.net.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Client\obj\Debug\Client.net.pdb

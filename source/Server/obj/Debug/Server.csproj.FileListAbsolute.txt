@@ -1,0 +1,12 @@
+C:\Users\racke\RiderProjects\TTT\TTT\Server\bin\Debug\Server.net.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Server\bin\Debug\Server.net.pdb
+C:\Users\racke\RiderProjects\TTT\TTT\Server\bin\Debug\CitizenFX.Core.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Server\bin\Debug\MySql.Data.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Server\bin\Debug\ServerData.net.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\racke\RiderProjects\TTT\TTT\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\racke\RiderProjects\TTT\TTT\Server\obj\Debug\Server.net.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Server\obj\Debug\Server.net.pdb
+C:\Users\racke\RiderProjects\TTT\TTT\Server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\racke\RiderProjects\TTT\TTT\Server\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\racke\RiderProjects\TTT\TTT\Server\bin\Debug\Newtonsoft.Json.xml

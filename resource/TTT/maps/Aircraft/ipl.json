@@ -1,0 +1,18 @@
+{
+	"hei_carrier":true,
+    "hei_carrier_distantlights":true,
+    "hei_carrier_int1":true,
+    "hei_carrier_int1_lod":true,
+    "hei_carrier_int2":true,
+    "hei_carrier_int2_lod":true,
+    "hei_carrier_int3":true,
+    "hei_carrier_int3_lod":true,
+    "hei_carrier_int4":true,
+    "hei_carrier_int4_lod":true,
+    "hei_carrier_int5":true,
+    "hei_carrier_int5_lod":true,
+    "hei_carrier_int6":true,
+    "hei_carrier_lod":true,
+    "hei_carrier_lodlights":true,
+    "hei_carrier_slod":true
+}
