@@ -140,7 +140,7 @@ namespace Server
                 var spawnList = Main.LoadJson($@"resources/{GetCurrentResourceName()}/maps/{mapName}/spawn.json");
 
                 int countPlayerSpawn = 0;
-                while (countPlayerSpawn < lobbyList.Count) //TODO???
+                while (countPlayerSpawn < lobbyList.Count)
                 {
                     foreach (var item in spawnList)
                     {

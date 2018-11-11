@@ -13,6 +13,7 @@ namespace Client
         public static SizeF Res = GetScreenResolutionMaintainRatio();
         private static float Height = Res.Height;
         private static readonly float Width = Res.Width;
+        public static int CurrentOnline = 0;
             
         public UI()
         {
@@ -165,6 +166,8 @@ namespace Client
                     DrawText("$" + User.Data.money.ToString("#,#"), 15, 50, 0.6f, 244, 67, 54, 255, 7, 2, false, true, 0, 0, 2);
                 else
                     DrawText("$" + User.Data.money.ToString("#,#"), 15, 50, 0.6f, 115, 186, 131, 255, 7, 2, false, true, 0, 0, 2);
+                
+                DrawText($"Players: {CurrentOnline}", 130, 8, 0.3f, 255, 255, 255, 150, 0, 2, false, false, 0, 0, 2);
             }
         }
         

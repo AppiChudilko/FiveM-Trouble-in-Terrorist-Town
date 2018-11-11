@@ -65,7 +65,7 @@ namespace Server
             await Delay(1000);
 
             var inGameList = new PlayerList().Where(p => Sync.Data.Has(User.GetPlayerServerId(p), "InGame")).ToList();
-            if (inGameList.Any()) //TODO
+            if (inGameList.Any())
             {
                 if (Sync.Data.Has(-1, "BriefingTimer") && (int) Sync.Data.Get(-1, "BriefingTimer") > 0)
                 {
@@ -125,7 +125,7 @@ namespace Server
             await Delay(1000);
             
             var inGameList = new PlayerList().Where(p => Sync.Data.Has(User.GetPlayerServerId(p), "InGame")).ToList();
-            if (inGameList.Any()) //TODO
+            if (inGameList.Any())
             {
                 if (Sync.Data.Has(-1, "GameTimer") && (int) Sync.Data.Get(-1, "GameTimer") > 0)
                 {
@@ -176,7 +176,7 @@ namespace Server
 
             var lobbyList = new PlayerList().Where(p => Sync.Data.Has(User.GetPlayerServerId(p), "Lobby")).ToList();
 
-            if (lobbyList.Any()) //TODO
+            if (lobbyList.Any())
             {
                 if (Sync.Data.Has(-1, "StartTimer") && (int) Sync.Data.Get(-1, "StartTimer") > 0)
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.UI;
@@ -24,6 +25,8 @@ namespace Client
         private static async Task SecTimer()
         {
             await Delay(1000);
+
+            UI.CurrentOnline = new PlayerList().Count();
             
             SetWeatherTypePersist(User.MapInfo.Weather);
             SetWeatherTypeNowPersist(User.MapInfo.Weather);
@@ -80,7 +83,7 @@ namespace Client
                 else
                 {
                     Sync.Data.Set(User.GetServerId(), "Lobby", true);
-                    if (User.LobbyInfo.CountPlayers < 1) //TODO
+                    if (User.LobbyInfo.CountPlayers < 2)
                     {
                         Screen.LoadingPrompt.Show($"Wait more players... {User.LobbyInfo.CountPlayers}/2");
                         Sync.Data.Set(-1, "StartTimer", 121);
