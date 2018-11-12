@@ -456,6 +456,11 @@ namespace Client
             //NetworkSetVoiceChannel(999);
         }
         
+        public static int GetSpecLast()
+        {
+            return _lastSpec;
+        }
+        
         public static void SwitchToGame()
         {
             SetEntityHealth(GetPlayerPed(-1), 200);

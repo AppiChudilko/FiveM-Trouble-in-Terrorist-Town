@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using CitizenFX.Core;
@@ -14,10 +15,13 @@ namespace Client
         private static float Height = Res.Height;
         private static readonly float Width = Res.Width;
         public static int CurrentOnline = 0;
+
+        private static readonly Dictionary<int, bool> VisiblePlayer = new Dictionary<int, bool>();
             
         public UI()
         {
             Tick += TimeSync;
+            Tick += SetSec;
             Tick += Set10Tick;
             Tick += SetTickHideHud;
             Tick += SetTickHideNpc;
@@ -34,7 +38,8 @@ namespace Client
                     if (!(Main.GetDistance(GetEntityCoords(GetPlayerPed(p.Handle), true),
                               GetEntityCoords(GetPlayerPed(-1), true)) < 20f)) continue;
                     var entity = new MyEntity(GetPlayerPed(p.Handle));
-                    
+
+                    if (!VisiblePlayer.ContainsKey(p.ServerId)) continue;
                     var text = p.Name;
                     
                     if (User.GameInfo.Active && User.GameInfo.PlayerType == PlayerTypes.Traitor)
@@ -59,6 +64,24 @@ namespace Client
                     if (NetworkIsPlayerTalking(p.Handle))
                         text += "\n~b~Talking";
                     DrawText3D(entity.Position + new Vector3(0, 0, 0.6f), text);
+                }
+            }
+        }
+        
+        private static async Task SetSec()
+        {
+            await Delay(1000);
+            if (Game.CurrentInputMode == InputMode.MouseAndKeyboard && !Menu.IsShowInput && User.GameInfo.Active)
+            {
+                VisiblePlayer.Clear();
+                foreach (var p in new PlayerList())
+                {
+                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
+                    if (!(Main.GetDistance(GetEntityCoords(GetPlayerPed(p.Handle), true),
+                              GetEntityCoords(GetPlayerPed(-1), true)) < 20f)) continue;
+
+                    if (HasEntityClearLosToEntity(GetPlayerPed(-1), GetPlayerPed(p.Handle), 17))
+                        VisiblePlayer.Add(p.ServerId, true);
                 }
             }
         }
