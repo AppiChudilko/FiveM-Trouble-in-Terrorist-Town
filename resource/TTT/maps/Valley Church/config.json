@@ -1,0 +1,10 @@
+{
+	"briefing":30,
+	"canSwiming":true,
+	"maxPlayers":32,
+	"centerX":-1721.707,
+	"centerY":-212.5386,
+	"centerZ":57.5427,
+	"maxRadius":500.0,
+	"playTime":300
+}
