@@ -1,25 +1,25 @@
 {
 	"weapon_pistol":120,
 	"weapon_pistol_mk2":80,
-	"weapon_combatpistol":80
-	"weapon_pistol50":40
+	"weapon_combatpistol":80,
+	"weapon_pistol50":40,
 	"weapon_snspistol":120,
 	"weapon_snspistol_mk2":80,
-	"weapon_vintagepistol":80
-	"weapon_microsmg":150
+	"weapon_vintagepistol":80,
+	"weapon_microsmg":150,
 	"weapon_smg":80,
 	"weapon_machinepistol":120,
-	"weapon_minismg":150
-	"weapon_pumpshotgun":25
-	"weapon_sawnoffshotgun":25
-	"weapon_dbshotgun":25
-	"weapon_assaultrifle":60
-	"weapon_carbinerifle":60
-	"weapon_advancedrifle":60
-	"weapon_bullpuprifle":60
-	"weapon_compactrifle":120
-	"weapon_mg":150
-	"weapon_gusenberg":150
-	"weapon_combatmg":150
+	"weapon_minismg":150,
+	"weapon_pumpshotgun":25,
+	"weapon_sawnoffshotgun":25,
+	"weapon_dbshotgun":25,
+	"weapon_assaultrifle":60,
+	"weapon_carbinerifle":60,
+	"weapon_advancedrifle":60,
+	"weapon_bullpuprifle":60,
+	"weapon_compactrifle":120,
+	"weapon_mg":150,
+	"weapon_gusenberg":150,
+	"weapon_combatmg":150,
 	"weapon_sniperrifle":20
 }
