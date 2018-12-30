@@ -43,6 +43,11 @@ namespace Server
 
         public static void SetMap(string name)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                SetMap(MapList.First());
+                return;
+            }
             SetMapName(name);
             Sync.Data.Set(-1, "MapName", name);
             GameManager.CountPlayMap = 0;

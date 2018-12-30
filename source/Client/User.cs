@@ -118,6 +118,20 @@ namespace Client
         {
             Spawn(skin, x, y, z, heading, checkIsLogin);
         }
+
+        public static async void SetSkin(string skin)
+        {
+            uint spawnModel = (uint) GetHashKey(skin);
+            RequestModel(spawnModel);
+            while (!HasModelLoaded(spawnModel))
+            {
+                RequestModel(spawnModel);
+                await Delay(1);
+            }
+
+            SetPlayerModel(PlayerId(), spawnModel);
+            SetModelAsNoLongerNeeded(spawnModel);
+        }
         
         public static async void Spawn(string skin, float x, float y, float z, float heading, bool checkIsLogin = false)
         {
@@ -128,17 +142,8 @@ namespace Client
 
             await UI.ShowLoadDisplay();
             
-            uint spawnModel = (uint) GetHashKey(skin);
+            SetSkin(skin);
             
-            RequestModel(spawnModel);
-            while (!HasModelLoaded(spawnModel))
-            {
-                RequestModel(spawnModel);
-                await Delay(1);
-            }
-
-            SetPlayerModel(PlayerId(), spawnModel);
-            SetModelAsNoLongerNeeded(spawnModel);
             RequestCollisionAtCoord(x, y, z);
 
             var ped = GetPlayerPed(-1);
@@ -279,6 +284,11 @@ namespace Client
             }
         }
         
+        public static void PedRotation(float rotation)
+        {
+            SetEntityHeading(GetPlayerPed(-1), rotation);
+        }
+        
         public static void PlayScenario(string scenarioName)
         {
             if (IsBlockAnimation) return;
@@ -382,7 +392,7 @@ namespace Client
                     SwitchToMainMenu();
                     break;
                 case 1:
-                    SwitchToLobby();
+                    SwitchToShop();
                     break;
                 case 2:
                     SwitchToLobby();
@@ -490,6 +500,20 @@ namespace Client
 
             MenuList.ShowWeaponShopMenu();
             
+            await UI.HideLoadDisplay();
+        }
+        
+        public static async void SwitchToShop()
+        {
+            await UI.ShowLoadDisplay();
+
+            Sync.Data.Reset(-1, "StartTimer");
+            Respawn(new Vector3(406.2783f, -749.1988f, 28.3256f), new Random().Next(360), false, false);
+            NetworkSetVoiceChannel(999);
+            MenuList.ShowShopMenu();
+            
+            Freeze(true);
+            Invisible(true);
             await UI.HideLoadDisplay();
         }
         

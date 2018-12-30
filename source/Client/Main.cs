@@ -29,8 +29,79 @@ namespace Client
             
             User.MapInfo.Weather = "EXTRASUNNY";
             User.MapInfo.Hour = 13;
-            
-            UI.ShowSimpleShard("TEST", "TEST222", 20000);
+        }
+        
+        public static dynamic[,] GetAllSkinList()
+        {
+            dynamic[,] skins =
+            {
+                { "a_m_y_beach_02", 50000 },
+                { "a_m_y_beach_03", 50000 },
+                { "a_m_y_beachvesp_01", 50000 },
+                { "a_m_y_beachvesp_02", 50000 },
+                { "a_m_m_bevhills_01", 50000 },
+                { "a_m_y_bevhills_01", 50000 },
+                { "a_m_m_bevhills_02", 50000 },
+                { "a_m_y_bevhills_03", 50000 },
+                { "a_m_y_breakdance_01", 50000 },
+                { "a_m_y_beach_01", 50000 },
+                { "s_m_y_dealer_01", 50000 },
+                { "a_m_y_eastsa_02", 50000 },
+                { "a_m_y_genstreet_01", 50000 },
+                { "a_m_y_genstreet_02", 50000 },
+                { "u_m_y_guido_01", 50000 },
+                { "u_m_y_gunvend_01", 50000 },
+                { "a_m_y_hipster_01", 50000 },
+                { "a_m_y_indian_01", 50000 },
+                { "g_m_y_korean_01", 50000 },
+                { "g_m_y_korean_02", 50000 },
+                { "a_m_y_ktown_01", 50000 },
+                { "a_m_y_latino_01", 50000 },
+                { "a_m_m_malibu_01", 50000 },
+                { "a_m_m_mexlabor_01", 50000 },
+                { "a_m_y_motox_02", 50000 },
+                { "a_m_y_musclbeac_02", 50000 },
+                { "a_m_m_paparazzi_01", 50000 },
+                { "a_m_y_polynesian_01", 50000 },
+                { "a_m_y_runner_01", 50000 },
+                { "a_m_y_skater_01", 50000 },
+                { "a_m_m_skater_01", 50000 },
+                { "a_m_m_socenlat_01", 50000 },
+                { "s_f_y_bartender_01", 50000 },
+                { "a_f_m_bevhills_01", 50000 },
+                { "a_f_y_bevhills_01", 50000 },
+                { "a_f_y_bevhills_02", 50000 },
+                { "a_f_y_bevhills_04", 50000 },
+                { "a_f_y_yoga_01", 50000 },
+                { "a_f_y_business_01", 50000 },
+                { "a_f_m_business_02", 50000 },
+                { "a_f_y_business_02", 50000 },
+                { "a_f_y_business_04", 50000 },
+                { "a_f_y_genhot_01", 50000 },
+                { "a_f_y_golfer_01", 50000 },
+                { "a_f_y_hippie_01", 50000 },
+                { "a_f_y_hipster_01", 50000 },
+                { "a_f_y_hipster_02", 50000 },
+                { "a_f_y_hipster_03", 50000 },
+                { "a_f_y_hipster_04", 50000 },
+                { "s_f_y_hooker_01", 50000 },
+                { "u_f_y_hotposh_01", 50000 },
+                { "a_f_y_indian_01", 50000 },
+                { "g_f_y_lost_01", 50000 },
+                { "s_f_y_movprem_01", 50000 },
+                { "a_f_y_runner_01", 50000 },
+                { "a_f_y_rurmeth_01", 50000 },
+                { "a_f_y_skater_01", 50000 },
+                { "u_f_y_spyactress", 50000 },
+                { "s_f_y_sweatshop_01", 50000 },
+                { "a_f_y_tourist_01", 50000 },
+                { "g_f_y_vagos_01", 50000 },
+                { "a_f_y_vinewood_01", 50000 },
+                { "a_f_y_vinewood_02", 50000 },
+                { "a_f_y_vinewood_04", 50000 },
+            };
+
+            return skins;
         }
         
         public static void SendLog(string fileName, string text)

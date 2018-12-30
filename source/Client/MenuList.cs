@@ -18,6 +18,8 @@ namespace Client
             Tick += ProcessMainMenu;
         }
         
+        public static Camera Camera;
+        
         public static void ShowWeaponShopMenu()
         {
             HideMenu();
@@ -93,6 +95,70 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        public static async void ShowShopMenu()
+        {
+            HideMenu();
+
+            var menu = new Menu();
+            UiMenu = menu.Create("Shop", "~b~Skin Shop", true, true);
+            
+            RequestCollisionAtCoord(9.653649f, 528.3086f, 169.635f);
+            await Delay(1000);
+                    
+            User.Teleport(new Vector3(9.653649f, 528.3086f, 169.635f));
+            NetworkResurrectLocalPlayer(9.653649f, 528.3086f, 169.635f, 120.0613f, true, true);
+            User.PedRotation(120.0613f);
+                    
+            User.Freeze(true);
+                    
+            Camera = new CitizenFX.Core.Camera(CreateCam("DEFAULT_SCRIPTED_CAMERA", true));
+            Camera.IsActive = true;
+            Camera.Position = new Vector3(8.243752f, 527.4373f, 171.6173f);
+            Camera.PointAt(new Vector3(9.653649f, 528.3086f, 171.335f));
+            RenderScriptCams(true, false, Camera.Handle, false, false);
+
+            var skinList = Main.GetAllSkinList();
+            
+            var listSkin = new List<dynamic>();     
+            for (int i = 0; i < skinList.Length / 2; i++)
+                listSkin.Add("$" + skinList[i, 1].ToString());
+            
+                    
+            var skinListMenu = menu.AddMenuItemList(UiMenu, "Skin List", listSkin, "Press enter if u wanna buy");
+            skinListMenu.OnListSelected += async (uimenu, idx) =>
+            {
+                int sum = (int) skinList[idx, 1];
+                if (await User.GetCashMoney() < sum)
+                {
+                    Notification.Send("~r~You dont have money");
+                    return;
+                }
+                User.RemoveCashMoney(sum);
+                Sync.Data.Set(User.GetServerId(), "skin", (string) skinList[idx, 0]);
+                User.Data.skin = (string) skinList[idx, 0];
+                User.SetSkin((string) skinList[idx, 0]);
+                Notification.Send($"~g~You are buy new skin. Price: ${sum:#,#}");
+            };
+            
+            skinListMenu.OnListChanged += (uimenu, idx) =>
+            {
+                User.SetSkin((string) skinList[idx, 0]);
+            };
+            
+            menu.AddMenuItem(UiMenu, "~y~Exit to main menu").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                User.Freeze(false);
+                Camera.Delete();
+                Camera = null;
+                RenderScriptCams(false, true, 500, true, true);
+                User.SetSkin(User.Data.skin);
+                User.SetStatusType(StatusTypes.MainMenu);
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
         public static void ShowLobbyMenu()
         {
             HideMenu();
@@ -122,16 +188,16 @@ namespace Client
             var menu = new Menu();
             UiMenu = menu.Create("Menu", "~b~Main menu", true, true);
             
-            /*menu.AddMenuItem(UiMenu, "Skin shop").Activated += (uimenu, item) =>
-            {
-                HideMenu();
-                User.Spawn(User.Data.skin, 406.2783f, -749.1988f, 28.3256f, 0);
-            };*/
-            
             menu.AddMenuItem(UiMenu, "~g~Play").Activated += async (uimenu, item) =>
             {
                 HideMenu();
                 User.SetStatusType(StatusTypes.Lobby);
+            };
+            
+            menu.AddMenuItem(UiMenu, "Skin shop").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                User.SetStatusType(StatusTypes.Shop);
             };
             
             menu.AddMenuItem(UiMenu, "~r~Exit", "You are kicked from the server").Activated += (uimenu, item) =>
@@ -207,6 +273,12 @@ namespace Client
         private static async Task ProcessMenuPool()
         {
             MenuPool.ProcessMenus();
+
+            if (MenuPool.ToList().Count == 0 && Camera != null)
+            {
+                Camera = null;
+                ShowShopMenu();
+            }
         }
     }
 }
