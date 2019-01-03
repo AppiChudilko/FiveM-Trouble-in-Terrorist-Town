@@ -126,6 +126,9 @@ namespace Client
             else
                 User.GameInfo.PlayerType = PlayerTypes.Innocent;
             
+            if (User.GameInfo.PlayerType == PlayerTypes.Traitor)
+                MenuList.ShowWeaponShopMenu("Special");
+            
             Sync.Data.Set(User.GetServerId(), "playerType", User.GameInfo.PlayerType);
         }
 

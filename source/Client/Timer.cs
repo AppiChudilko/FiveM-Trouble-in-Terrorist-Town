@@ -92,14 +92,14 @@ namespace Client
                         Screen.LoadingPrompt.Hide();
                 }
             }
-            if (User.GetStatusType() == StatusTypes.Spectator)
+            /*if (User.GetStatusType() == StatusTypes.Spectator)
             {
                 if (IsEntityDead(GetPlayerPed(User.GetSpecLast())))
                 {
                     User.SetStatusType(StatusTypes.Spectator);
                     await Delay(5000);
                 }
-            }
+            }*/
         }
         
         private static async Task SetTick()

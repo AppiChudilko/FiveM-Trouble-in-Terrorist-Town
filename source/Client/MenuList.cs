@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using NativeUI;
@@ -20,54 +21,140 @@ namespace Client
         
         public static Camera Camera;
         
-        public static void ShowWeaponShopMenu()
+        public static void ShowWeaponShopMenu(string weaponType = "Manual")
         {
             HideMenu();
 
             var menu = new Menu();
-            UiMenu = menu.Create("Briefing", "~b~Weapon shop");
+            UiMenu = menu.Create("Weapons", $"~b~{weaponType}");
 
             if (User.WeaponList == null)
             {
-                menu.AddMenuItem(UiMenu, "Knife").Activated += (uimenu, idx) =>
+                if (weaponType == "Secondary")
                 {
-                    GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.Knife, 1, false, true);
-                };
+                    menu.AddMenuItem(UiMenu, "Pistol").Activated += (uimenu, idx) =>
+                    {
+                        HideMenu();
+                        GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.Pistol, 20, false, true);
+                        ShowWeaponShopMenu("Main");
+                    };
+                }
+                else if (weaponType == "Main")
+                {
+                    menu.AddMenuItem(UiMenu, "SMG").Activated += (uimenu, idx) =>
+                    {
+                        HideMenu();
+                        GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.SMG, 60, false, true);
+                    };
 
-                menu.AddMenuItem(UiMenu, "Pistol").Activated += (uimenu, idx) =>
-                {
-                    GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.Pistol, 20, false, true);
-                };
+                    menu.AddMenuItem(UiMenu, "CarbineRifle").Activated += (uimenu, idx) =>
+                    {
+                        HideMenu();
+                        GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.CarbineRifle, 60, false, true);
+                    };
 
-                menu.AddMenuItem(UiMenu, "SMG").Activated += (uimenu, idx) =>
+                    menu.AddMenuItem(UiMenu, "AssaultRifle").Activated += (uimenu, idx) =>
+                    {
+                        HideMenu();
+                        GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.AssaultRifle, 60, false, true);
+                    };
+                }
+                else if (weaponType == "Special")
                 {
-                    GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.SMG, 60, false, true);
-                };
-
-                menu.AddMenuItem(UiMenu, "CarbineRifle").Activated += (uimenu, idx) =>
+                    menu.AddMenuItem(UiMenu, "Grenade").Activated += (uimenu, idx) =>
+                    {
+                        HideMenu();
+                        GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.Grenade, 2, false, false);
+                    };
+                    menu.AddMenuItem(UiMenu, "RPG").Activated += (uimenu, idx) =>
+                    {
+                        HideMenu();
+                        GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.RPG, 1, false, false);
+                    };
+                }
+                else
                 {
-                    GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.CarbineRifle, 60, false, true);
-                };
-
-                menu.AddMenuItem(UiMenu, "AssaultRifle").Activated += (uimenu, idx) =>
-                {
-                    GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.AssaultRifle, 60, false, true);
-                };
+                    menu.AddMenuItem(UiMenu, "Knife").Activated += (uimenu, idx) =>
+                    {
+                        HideMenu();
+                        GiveWeaponToPed(GetPlayerPed(-1), (uint) WeaponHash.Knife, 1, false, true);
+                        ShowWeaponShopMenu("Secondary");
+                    };
+                }
             }
             else
             {
                 foreach (var item in (IDictionary<String, Object>) User.WeaponList)
                 {
-                    menu.AddMenuItem(UiMenu, Main.WeaponNameToNormalName(item.Key)).Activated += (uimenu, idx) =>
+                    if (weaponType == "Secondary")
                     {
-                        GiveWeaponToPed(GetPlayerPed(-1), (uint) GetHashKey(item.Key), Convert.ToInt32(item.Value), false, true);
-                    };
+                        if (GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 416676503)
+                        {
+                            menu.AddMenuItem(UiMenu, Main.WeaponNameToNormalName(item.Key)).Activated += (uimenu, idx) =>
+                            {
+                                HideMenu();
+                                GiveWeaponToPed(GetPlayerPed(-1), (uint) GetHashKey(item.Key), Convert.ToInt32(item.Value), false, true);
+                                ShowWeaponShopMenu("Main");
+                            };
+                        }
+                    }
+                    else if (weaponType == "Main")
+                    {
+                        if (
+                            GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 3337201093 ||
+                            GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 860033945 ||
+                            GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 970310034 ||
+                            GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 1159398588 ||
+                            GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 3082541095
+                            )
+                        {
+                            menu.AddMenuItem(UiMenu, Main.WeaponNameToNormalName(item.Key)).Activated +=
+                                (uimenu, idx) =>
+                                {
+                                    HideMenu();
+                                    GiveWeaponToPed(GetPlayerPed(-1), (uint) GetHashKey(item.Key),
+                                        Convert.ToInt32(item.Value), false, true);
+                                };
+                        }
+                    }
+                    else if (weaponType == "Special")
+                    {
+                        if (
+                            GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 1548507267 ||
+                            GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 2725924767
+                        )
+                        {
+                            menu.AddMenuItem(UiMenu, Main.WeaponNameToNormalName(item.Key)).Activated +=
+                                (uimenu, idx) =>
+                                {
+                                    HideMenu();
+                                    GiveWeaponToPed(GetPlayerPed(-1), (uint) GetHashKey(item.Key),
+                                        Convert.ToInt32(item.Value), false, false);
+                                };
+                        }
+                    }
+                    else
+                    {
+                        if (GetWeapontypeGroup((uint) GetHashKey(item.Key)) == 2685387236)
+                        {
+                            menu.AddMenuItem(UiMenu, Main.WeaponNameToNormalName(item.Key)).Activated += (uimenu, idx) =>
+                            {
+                                HideMenu();
+                                GiveWeaponToPed(GetPlayerPed(-1), (uint) GetHashKey(item.Key), Convert.ToInt32(item.Value), false, true);
+                                ShowWeaponShopMenu("Secondary");
+                            };
+                        }
+                    }
                 }
             }
             
             menu.AddMenuItem(UiMenu, "~r~Close").Activated += (uimenu, item) =>
             {
                 HideMenu();
+                if (weaponType == "Secondary")
+                    ShowWeaponShopMenu("Main");
+                else if (weaponType == "Manual")
+                    ShowWeaponShopMenu("Secondary");
             };
             
             MenuPool.Add(UiMenu);
@@ -181,6 +268,30 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        public static void ShowInGameMenu()
+        {
+            if (User.GetStatusType() != StatusTypes.InGame)
+                return;
+            
+            HideMenu();
+
+            var menu = new Menu();
+            UiMenu = menu.Create("Menu", "~b~Main menu", true, true);
+            
+            menu.AddMenuItem(UiMenu, "~y~Drop Current Weapon").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                SetPedDropsWeapon(GetPlayerPed(-1));
+            };
+            
+            menu.AddMenuItem(UiMenu, "~r~Close").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
         public static void ShowMainMenu()
         {
             HideMenu();
@@ -279,6 +390,43 @@ namespace Client
                 Camera = null;
                 ShowShopMenu();
             }
+            
+            if (Game.IsControlJustPressed(0, (Control) 244) || Game.IsDisabledControlJustPressed(0, (Control) 244)) //M
+                ShowInGameMenu();
+            
+            if (Game.IsControlJustPressed(0, (Control) 174) || Game.IsDisabledControlJustPressed(0, (Control) 174)) // left
+            {
+                if (User.GetStatusType() != StatusTypes.Spectator)
+                    return;
+
+                var list = new NavigationList<Player>();
+                list.AddRange(new PlayerList().Where(p => !p.IsDead).Where(p => !p.IsInvincible));
+                try
+                {
+                    User.StartSpec(list.MovePrevious);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine($"{list.Count} | {e}");
+                    User.StartSpec(list.First());
+                }
+            }
+            else if (Game.IsControlJustPressed(0, (Control) 175) || Game.IsDisabledControlJustPressed(0, (Control) 175)) // right
+            {
+                if (User.GetStatusType() != StatusTypes.Spectator)
+                    return;
+                var list = new NavigationList<Player>();
+                list.AddRange(new PlayerList().Where(p => !p.IsDead).Where(p => !p.IsInvincible));
+                try
+                {
+                    User.StartSpec(list.MoveNext);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine($"{list.Count} | {e}");
+                    User.StartSpec(list.Last());
+                }
+            } 
         }
     }
 }

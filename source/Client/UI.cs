@@ -191,6 +191,10 @@ namespace Client
                     DrawText("$" + User.Data.money.ToString("#,#"), 15, 50, 0.6f, 115, 186, 131, 255, 7, 2, false, true, 0, 0, 2);
                 
                 DrawText($"Players: {CurrentOnline}", 130, 8, 0.3f, 255, 255, 255, 150, 0, 2, false, false, 0, 0, 2);
+                if (User.GetStatusType() == StatusTypes.InGame)
+                    DrawText($"M - Game Menu | Players: {CurrentOnline}", 130, 8, 0.3f, 255, 255, 255, 150, 0, 2, false, false, 0, 0, 2);
+                if (User.GetStatusType() == StatusTypes.Spectator)
+                    DrawText($"Arrow LEFT and RIGHT switch player | Players: {CurrentOnline}", 130, 8, 0.3f, 255, 255, 255, 150, 0, 2, false, false, 0, 0, 2);
             }
         }
         

@@ -441,7 +441,7 @@ namespace Client
             foreach (Player p in new PlayerList())
             {
                 if (p.IsDead) continue;
-                if (!await Sync.Data.Has(p.ServerId, "InGame")) continue;
+                if (p.IsInvincible) continue;
                 StartSpec(p);
                 return;
             }

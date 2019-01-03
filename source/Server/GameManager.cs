@@ -194,12 +194,11 @@ namespace Server
                             voteCam2++;
                     }
                     
-
                     foreach (var p in lobbyList)
                         p.TriggerEvent("TTT:UpdateLobbyInfo", (int) Sync.Data.Get(-1, "StartTimer"), voteCam1, voteCam2, lobbyList.Count);
 
                     if ((int) Sync.Data.Get(-1, "StartTimer") > 15)
-                        if (lobbyList.Count == voteCam1 + voteCam2)
+                        if (lobbyList.Count / 2 <= voteCam1 + voteCam2)
                             Sync.Data.Set(-1, "StartTimer", 10);
 
                     if ((int) Sync.Data.Get(-1, "StartTimer") < 1)
