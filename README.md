@@ -4,6 +4,9 @@ Trouble in Terrorist Town (short TTT) - This mode is a kind of card mafia, where
 # Resources in server.cfg
 
 start mapmanager
+
 start sessionmanager
+
 start TTT
+
 start TTTMapping
