@@ -55,6 +55,7 @@ namespace Client
                     float spawnX = (float) await Sync.Data.Get(User.GetServerId(), "spawnPosX");
                     float spawnY = (float) await Sync.Data.Get(User.GetServerId(), "spawnPosY");
                     float spawnZ = (float) await Sync.Data.Get(User.GetServerId(), "spawnPosZ");
+                    
                     User.Teleport(new Vector3(spawnX, spawnY, spawnZ));
                 }
 

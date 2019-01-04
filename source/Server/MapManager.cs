@@ -151,14 +151,36 @@ namespace Server
                     {
                         if (countPlayerSpawn >= lobbyList.Count) continue;
                         var playerId = User.GetPlayerServerId(lobbyList[countPlayerSpawn]);
+                        
+                        Debug.WriteLine($"DEBUG CONSOLE COORD JSON: {item.Value}");
+                        
                         var posString = item.Value.ToString().Split(',');
                                                 
                         if (posString.Length != 4) continue;
                         
-                        Sync.Data.Set(playerId, "spawnPosX", Convert.ToDouble(posString[0]));
+                        //TODO Windows version
+                        posString[0] = posString[0].Trim();
+                        posString[0] = posString[0].Substring(0, posString[0].IndexOf('.'));
+
+                        posString[1] = posString[1].Trim();
+                        posString[1] = posString[1].Substring(0, posString[1].IndexOf('.'));
+
+                        posString[2] = posString[2].Trim();
+                        posString[2] = posString[2].Substring(0, posString[2].IndexOf('.'));
+
+                        posString[3] = posString[3].Trim();
+                        posString[3] = posString[3].Substring(0, posString[3].IndexOf('.'));
+                        
+                        Sync.Data.Set(playerId, "spawnPosX", Convert.ToInt32(posString[0]));
+                        Sync.Data.Set(playerId, "spawnPosY", Convert.ToInt32(posString[1]));
+                        Sync.Data.Set(playerId, "spawnPosZ", Convert.ToInt32(posString[2]));
+                        Sync.Data.Set(playerId, "spawnRot", Convert.ToInt32(posString[3]));
+                        
+                        //TODO Linux version
+                        /*Sync.Data.Set(playerId, "spawnPosX", Convert.ToDouble(posString[0]));
                         Sync.Data.Set(playerId, "spawnPosY", Convert.ToDouble(posString[1]));
                         Sync.Data.Set(playerId, "spawnPosZ", Convert.ToDouble(posString[2]));
-                        Sync.Data.Set(playerId, "spawnRot", Convert.ToDouble(posString[3]));
+                        Sync.Data.Set(playerId, "spawnRot", Convert.ToDouble(posString[3]));*/
                         countPlayerSpawn++;
                     }
                 }
