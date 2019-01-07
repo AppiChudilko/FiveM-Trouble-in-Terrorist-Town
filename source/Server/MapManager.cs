@@ -39,12 +39,21 @@ namespace Server
             foreach (string dir in Directory.GetDirectories($@"resources/{GetCurrentResourceName()}/maps/"))
                 MapList.Add(dir.Replace($"resources/{GetCurrentResourceName()}/maps/", ""));
             TriggerClientEvent("TTT:LoadMapList", MapList);
+
+            foreach (var item in MapList)
+                Debug.WriteLine(item);
         }
 
         public static void SetMap(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
+                if (MapList.Count > 3)
+                {
+                    var rand = new Random();
+                    SetMap(MapList[rand.Next(MapList.Count - 1)]);
+                    return;
+                }
                 SetMap(MapList.First());
                 return;
             }
@@ -150,12 +159,9 @@ namespace Server
                     foreach (var item in spawnList)
                     {
                         if (countPlayerSpawn >= lobbyList.Count) continue;
+                        
                         var playerId = User.GetPlayerServerId(lobbyList[countPlayerSpawn]);
-                        
-                        Debug.WriteLine($"DEBUG CONSOLE COORD JSON: {item.Value}");
-                        
-                        var posString = item.Value.ToString().Split(',');
-                                                
+                        var posString = item.Value.ToString().Split(',');               
                         if (posString.Length != 4) continue;
                         
                         //TODO Windows version

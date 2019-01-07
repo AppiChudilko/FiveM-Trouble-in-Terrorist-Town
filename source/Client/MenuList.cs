@@ -276,7 +276,7 @@ namespace Client
             HideMenu();
 
             var menu = new Menu();
-            UiMenu = menu.Create("Menu", "~b~Main menu", true, true);
+            UiMenu = menu.Create("Menu", "~b~Main menu");
             
             menu.AddMenuItem(UiMenu, "~y~Drop Current Weapon").Activated += (uimenu, item) =>
             {
